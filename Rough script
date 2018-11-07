@@ -1,1 +1,9 @@
+import pandas as pd
+import numpy as np
+
+#Will eventually be part of a function, but these work to just get started
+#Been mostly testing in jupyter notebook. Using python 3 but can switch to 2
+
+assay = pd.read_csv("Assay_metadata.txt", sep = "\t")
+protein = pd.read_csv("protein_dict.txt", sep = "\t", names=['IDs','Names'])
 
