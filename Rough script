@@ -44,4 +44,54 @@ for q in ass1:
     else:
         i += 1
 
-## CURRENT 
+
+
+
+
+
+### Curent
+
+import pandas as pd
+
+
+Assay1 = open("Assay1.csv", 'r')
+ass1=[]
+for line in Assay1:
+    ass1.append(line.strip('\n'))
+#FOR FINDING COLUMN NAME
+i = 1
+med_names = []
+count_names = []
+for q in ass1:
+    if q == '"DataType:","Median"':
+        j = i
+        med_names = ass1[j].split(",")
+        i += 1
+    elif q == '"DataType:","Count"':
+        k = i
+        count_names = ass1[k].split(",")
+        i += 1
+    else:
+        i += 1
+
+dictList = {}
+protein = []
+with open('protein_dict.txt', 'r') as f:
+    for line in f:
+        elements = line.rstrip().split("\t")
+        protein.append(elements)
+        dictList[elements[0]] = elements[1] 
+        
+#Median = pd.read_csv("Assay1.csv", header=None, names=med_names, skiprows=(j+1))
+Median = pd.read_csv("Assay1.csv", header=None, skiprows=(j))
+Median=Median.rename(columns=Median.iloc[0]).drop(Median.index[0])
+Median=Median.rename(columns=dictList)
+Median=Median[0:192]
+Median['Lines'], Median['Location'] = Median['Location'].str.split('(', 1).str
+Median['Plate'], Median['Location'] = Median['Location'].str.split(',', 1).str
+
+
+
+Median
+
+
