@@ -6,29 +6,36 @@ import numpy as np
 
 assay = pd.read_csv("Assay_metadata.txt", sep = "\t")
 
+## Create the dictionary of protein names
 dictList = {}
+## Createe list of protein names in specific order
 protein = []
+## Loop through txt file to assemble dictionary and list
 with open('protein_dict.txt', 'r') as f:
     for line in f:
         elements = line.rstrip().split("\t")
         protein.append(elements)
         dictList[elements[0]] = elements[1] 
 
-
+##open Assay file
 Assay1 = open("Assay1.csv", 'r')
+##Read in assay file
 ass1=[]
 for line in Assay1:
     ass1.append(line.strip('\n'))
+
 #FOR FINDING COLUMN NAME
-i = 0
+i = 1
 med_names = []
 count_names = []
 for q in ass1:
     if q == '"DataType:","Median"':
+        ##j is the line of the median data table
         j = i
         med_names = ass1[j+1].split(",")
         i += 1
     elif q == '"DataType:","Count"':
+        ##k is the line of the count data table
         k = i
         count_names = ass1[k+1].split(",")
         i += 1
