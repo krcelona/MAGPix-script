@@ -14,4 +14,24 @@ with open('protein_dict.txt', 'r') as f:
         protein.append(elements)
         dictList[elements[0]] = elements[1] 
 
-
+#FOR FINDING COLUMN NAME
+i = 0
+med_names = []
+count_names = []
+for q in ass1:
+    if q == '"DataType:","Median"':
+        j = i
+        med_names = ass1[j+1].split(",")
+        print(j)
+        print(q)
+        print(med_names[:5])
+        i += 1
+    elif q == '"DataType:","Count"':
+        k = i
+        count_names = ass1[k+1].split(",")
+        print(k)
+        print(q)
+        print(count_names[:5])
+        i += 1
+    else:
+        i += 1
