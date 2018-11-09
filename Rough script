@@ -5,5 +5,13 @@ import numpy as np
 #Been mostly testing in jupyter notebook. Using python 3 but can switch to 2
 
 assay = pd.read_csv("Assay_metadata.txt", sep = "\t")
-protein = pd.read_csv("protein_dict.txt", sep = "\t", names=['IDs','Names'])
+
+dictList = {}
+protein = []
+with open('protein_dict.txt', 'r') as f:
+    for line in f:
+        elements = line.rstrip().split("\t")
+        protein.append(elements)
+        dictList[elements[0]] = elements[1] 
+
 
