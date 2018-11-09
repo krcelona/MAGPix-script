@@ -30,14 +30,18 @@ med_names = []
 count_names = []
 for q in ass1:
     if q == '"DataType:","Median"':
-        ##j is the line of the median data table
+        ## j is the line of the median data table
         j = i
-        med_names = ass1[j+1].split(",")
+        ## med_names are the given column names of the median table
+        med_names = ass1[j].split(",")
         i += 1
     elif q == '"DataType:","Count"':
-        ##k is the line of the count data table
+        ## k is the line of the count data table
         k = i
-        count_names = ass1[k+1].split(",")
+        ## count_names are the given column names of the count table
+        count_names = ass1[k].split(",")
         i += 1
     else:
         i += 1
+
+## CURRENT 
