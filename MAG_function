@@ -1,0 +1,48 @@
+import pandas as pd
+import numpy as np
+
+assay = pd.read_csv("Assay_metadata.txt", sep = "\t")
+
+## Create the dictionary of protein names
+dictList = {}
+## Createe list of protein names in specific order
+protein = ['Location', 'Sample']
+## Loop through txt file to assemble dictionary and list
+with open('protein_dict.txt', 'r') as f:
+    for line in f:
+        elements = line.rstrip().split("\t")
+        protein.append(elements[1])
+        dictList[elements[0]] = elements[1] 
+ 
+def MAGFilter (file):
+    ##open Assay file
+    Assay1 = open(file, 'r')
+    ##Read in assay file
+    ass1=[]
+    for line in Assay1:
+        ass1.append(line.strip('\n'))
+        
+        #FOR FINDING COLUMN NAME
+    i = 1
+    for q in ass1:
+        if q == '"DataType:","Median"':
+            ## j is the line of the median data table
+            j = i
+            i += 1
+        elif q == '"DataType:","Count"':
+            ## k is the line of the count data table
+            k = i
+            i += 1
+        else:
+            i += 1
+            
+        #Median = pd.read_csv("Assay1.csv", header=None, names=med_names, skiprows=(j+1))
+    Median = pd.read_csv(file, header=None, skiprows=(j))
+    Median=Median.rename(columns=Median.iloc[0]).drop(Median.index[0])
+    Median=Median.rename(columns=dictList)
+    Median=Median[0:192]
+    Median['Lines'], Median['Location'] = Median['Location'].str.split('(', 1).str
+    Median['Plate'], Median['Location'] = Median['Location'].str.split(',', 1).str
+    Median = Median.reindex(columns=protein)
+    
+    Median.to_csv("new"+file)
