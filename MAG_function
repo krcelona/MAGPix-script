@@ -45,4 +45,15 @@ def MAGFilter (file):
     Median['Plate'], Median['Location'] = Median['Location'].str.split(',', 1).str
     Median = Median.reindex(columns=protein)
     
-    Median.to_csv("new"+file)
+    Count = pd.read_csv(file, header=None, skiprows=(k))
+    Count=Count.rename(columns=Count.iloc[0]).drop(Count.index[0])
+    Count=Count.rename(columns=dictList)
+    Count=Count[0:192]
+    Count['Lines'], Count['Location'] = Count['Location'].str.split('(', 1).str
+    Count['Plate'], Count['Location'] = Count['Location'].str.split(',', 1).str
+    Count = Count.reindex(columns=protein)
+    
+    file2 = file.split(".")[0]
+    
+    Count.to_csv('count'+file2+".csv")
+    Median.to_csv('median'+file2+".csv")
