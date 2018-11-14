@@ -23,6 +23,8 @@ def MAGFilter (file):
         ass1.append(line.strip('\n'))
         
         #FOR FINDING COLUMN NAME
+    j = 0
+    k = 0
     i = 1
     for q in ass1:
         if q == '"DataType:","Median"':
@@ -57,3 +59,17 @@ def MAGFilter (file):
     
     Count.to_csv('count'+file2+".csv")
     Median.to_csv('median'+file2+".csv")
+    
+    Count = []
+    Median = []
+    Assay1 = []
+    
+files_list = "file_list.txt"
+test=[]
+
+with open(files_list, 'r') as files:
+    for file in files:
+        test.append(file.rstrip())
+        
+for shit in test:
+    MAGFilter(shit)
