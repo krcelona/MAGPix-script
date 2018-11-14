@@ -71,5 +71,5 @@ with open(files_list, 'r') as files:
     for file in files:
         test.append(file.rstrip())
         
-for shit in test:
-    MAGFilter(shit)
+for assay in test:
+    MAGFilter(assay)
