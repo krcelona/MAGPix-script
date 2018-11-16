@@ -64,6 +64,27 @@ def MAGFilter (file):
     Median = []
     Assay1 = []
     
+newDict = {}
+with open('Assay_metadata.txt', 'r') as p:
+    for line in p:
+        line = line.rstrip().split("\t")
+        print(line)
+        rows = line[2].split(",")
+        print(rows)
+        for elem in rows:
+            elem = elem.replace("-", ",")
+            print(elem)
+            if elem.find(",") != -1:
+                temp = []
+                for n in range(int(elem.split(",")[0]),int(elem.split(",")[1])):
+                    #temp.append(n)
+                    #print(temp)
+                    new = line[0]+"_"+line[1]+"_"+str(n)
+                    newDict[new] = line[3]
+            else:
+                new = line[0]+"_"+line[1]+"_"+str(n)
+                newDict[new] = line[3]
+    
 files_list = "file_list.txt"
 test=[]
 
